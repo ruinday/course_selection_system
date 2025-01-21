@@ -1,3 +1,4 @@
+import sys
 from typing import List
 
 from fastapi import APIRouter
@@ -7,6 +8,8 @@ from tortoise.expressions import F
 from tortoise.transactions import in_transaction
 
 from models import StudentModel,CourseModel,GradeModel
+
+sys.path.append("..")
 
 api = APIRouter()
 

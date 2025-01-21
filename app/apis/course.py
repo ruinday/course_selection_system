@@ -2,7 +2,7 @@ from fastapi import APIRouter
 from fastapi.exceptions import HTTPException
 from pydantic import BaseModel,field_validator
 
-from models import CourseModel
+from app.models import CourseModel
 
 api = APIRouter()
 

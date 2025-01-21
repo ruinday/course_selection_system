@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    command: python app/main.py
+    volumes:
+      - .:/app
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db
+    environment:
+      - DATABASE_URL=mysql+pymysql://root:mm546896@db:3306/courses_selection_system
+
+  db:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: mm546896
+      MYSQL_DATABASE: courses_selection_system
+    volumes:
+      - db_data:/var/lib/mysql
+
+volumes:
+  db_data:

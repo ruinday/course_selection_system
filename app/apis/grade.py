@@ -2,7 +2,7 @@ from fastapi import APIRouter
 from fastapi.exceptions import HTTPException
 from pydantic import BaseModel
 
-from models import GradeModel
+from app.models import GradeModel
 
 api = APIRouter()
 
