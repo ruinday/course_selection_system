@@ -1,26 +1,39 @@
-version: '3.8'
+version: '1.0'
 
+name: CoursesSelectionSystem
 services:
-  web:
+  db:
+    container_name: mysql
+    image: mysql:8.0
+    ports: -"3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=mm546896
+      - MYSQL_DATABASE=courses_selection_system
+    volumes:
+      - db_data:/var/lib/mysql
+      - /app/myconf:/etc/mysql/conf.d
+    restart: always
+    networks:
+      - fastapi_net
+
+  fastapi:
+    container_name: fastapi
     build: .
     command: python app/main.py
     volumes:
       - .:/app
     ports:
       - "5000:5000"
-    depends_on:
-      - db
     environment:
       - DATABASE_URL=mysql+pymysql://root:mm546896@db:3306/courses_selection_system
-
-  db:
-    image: mysql:5.7
-    restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: mm546896
-      MYSQL_DATABASE: courses_selection_system
-    volumes:
-      - db_data:/var/lib/mysql
+    networks:
+      - fastapi_net
+    depends_on:
+      - db
 
 volumes:
   db_data:
+
+
+networks:
+  fastapi_net:
